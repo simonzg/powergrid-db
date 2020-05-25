@@ -21,12 +21,6 @@ export class Account {
     @Column({ type: 'blob', nullable: true, transformer: bytes('account.code', true) })
     public code!: string|null
 
-    @Column({ type: 'binary', length: 20, transformer: fixedBytes(20, 'account.master', true), nullable: true })
-    public master!: string | null
-
-    @Column({ type: 'binary', length: 20, transformer: fixedBytes(20, 'account.sponsor', true), nullable: true })
-    public sponsor!: string | null
-
     @Column({ type: 'varchar', nullable: true })
     public alias!: string | null
 }
