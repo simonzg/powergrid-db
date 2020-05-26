@@ -27,7 +27,7 @@ export class AggregatedTransaction {
     @Column({ type: 'binary', length: 32, transformer: fixedBytes(32, 'aggregatedTX.blockID') })
     public blockID!: string
 
-    @ManyToOne(type => Transaction, { onDelete: 'SET NULL', onUpdate: 'SET NULL' })
+    @ManyToOne(type => Transaction)
     @JoinColumn({name: 'txID'})
     public transaction!: Transaction
 
