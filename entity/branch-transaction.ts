@@ -1,16 +1,26 @@
-import { Entity, Column, JoinColumn, PrimaryColumn, OneToOne } from 'typeorm'
-import { fixedBytes, simpleJSON, compactFixedBytes, chainTag, amount } from '../transformers'
-import { Clause, Output } from '../types'
-import { TransactionMeta } from './tx-meta'
+import { Entity, Column, JoinColumn, PrimaryColumn, Index, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import { fixedBytes, simpleJSON, compactFixedBytes, chainTag, amount, txSeq } from '../transformers'
+import { Clause, Output, TXSeq } from '../types'
+import { Block } from './block'
 
 @Entity()
-export class Transaction {
+@Index('TXUnique', ['blockID', 'txID'], { unique: true })
+export class BranchTransaction {
+    @PrimaryGeneratedColumn('increment')
+    public id!: number
+
     @PrimaryColumn({ type: 'binary', length: 32, transformer: fixedBytes(32, 'tx.txID') })
     public txID!: string
 
-    @OneToOne(type => TransactionMeta, meta => meta.transaction, {onDelete: 'CASCADE'})
-    @JoinColumn({name: 'txID'})
-    public meta!: TransactionMeta
+    @Column({ type: 'binary', length: 32, transformer: fixedBytes(32, 'branch-tx.blockID') })
+    public blockID!: string
+
+    @ManyToOne(type => Block)
+    @JoinColumn({name: 'blockID'})
+    public block!: Block
+
+    @Column({ type: 'binary', length: 10, transformer: txSeq })
+    public seq!: TXSeq
 
     @Column({ type: 'binary', length: 1, transformer: chainTag })
     public chainTag!: number

@@ -1,78 +1,81 @@
 export interface Event {
-    address: string
-    topics: string[]
-    data: string
+  address: string;
+  topics: string[];
+  data: string;
 }
 
 export interface Transfer {
-    sender: string
-    recipient: string
-    amount: string
+  sender: string;
+  recipient: string;
+  amount: string;
 }
 
 export interface Output {
-    contractAddress: string | null,
-    events: Event[],
-    transfers: Transfer[]
+  contractAddress: string | null;
+  events: Event[];
+  transfers: Transfer[];
 }
 
 export interface Clause {
-    to: string | null
-    value: string | number
-    data: string
+  to: string | null;
+  value: string | number;
+  token: number;
+  data: string;
 }
 
 export enum SnapType {
-    DualToken = 0,
-    Authority,
-    GasAdjustment,
-    ExpandTX,
-    VIP180Token = 100
+  DualToken = 0,
+  Authority,
+  GasAdjustment,
+  ExpandTX,
+  VIP180Token = 100,
 }
 
 export enum AssetType {
-    VET = 0,
-    VTHO,
-    PLA,
-    SHA,
-    EHrT,
-    DBET,
-    TIC,
-    OCE,
-    SNK,
-    JUR,
-    AQD,
-    YEET,
-    HAI
+  MTR = 0,
+  MTRG,
+  VET,
+  VTHO,
+  PLA,
+  SHA,
+  EHrT,
+  DBET,
+  TIC,
+  OCE,
+  SNK,
+  JUR,
+  AQD,
+  YEET,
+  HAI,
 }
 
 export interface MoveIndex {
-    txIndex: number
-    clauseIndex: number
-    logIndex: number
+  txIndex: number;
+  clauseIndex: number;
+  logIndex: number;
 }
 
 export interface MoveSeq {
-    blockNumber: number,
-    moveIndex: MoveIndex
+  blockNumber: number;
+  moveIndex: MoveIndex;
 }
 
 export interface TXSeq {
-    blockNumber: number,
-    txIndex: number
+  blockNumber: number;
+  txIndex: number;
 }
 
 export enum MoveType {
-    In,
-    Out,
-    Self
+  In,
+  Out,
+  Self,
 }
 
 export enum AuthEvent {
-    Added,
-    Revoked,
-    Endorsed,
-    Unendorsed,
-    Activate,
-    Deactivate
+  Added,
+  Revoked,
+  Endorsed,
+  Unendorsed,
+  Activate,
+  Deactivate,
 }

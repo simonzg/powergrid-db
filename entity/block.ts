@@ -49,9 +49,6 @@ export class Block {
     public txCount!: number
 
     @Column()
-    public txsFeatures!: number
-
-    @Column()
     public score!: number
 
     @Column({ type: 'binary', length: 24, transformer: amount })
